@@ -7,7 +7,8 @@ class Paroxy:
     def __init__(self):
         self.port = 8081
         self.sock = socket.socket()
-        self.host = ""
+        self.host = "0.0.0.0"
+
     def main(self):
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.sock.bind((self.host, self.port))
@@ -35,7 +36,8 @@ class Paroxy:
                     break
             obj.send(data)
             obj.close()
-        obj.close()
+        else:
+            obj.close()
 
 if __name__ == "__main__":
     Paroxy().main()
