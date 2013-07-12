@@ -10,6 +10,7 @@ class Paroxy:
         self.host = "0.0.0.0"
 
     def main(self):
+        print "Paroxy has started on port ", str(port)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.sock.bind((self.host, self.port))
         self.sock.listen(5)
@@ -20,9 +21,10 @@ class Paroxy:
     def handle(self, obj):
         data_ = obj.recv(1024)
         if data_:
+            print data_
             data = data_.replace("\r", '')
             host = re.findall("Host: (.*)", data)[0]
-            print host
+            #print host
             sock = socket.socket()
             sock.connect((host, 80))
             sock.send(data_)
